@@ -6,6 +6,7 @@ import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
 import ru.geekbrains.service.SocketService;
 
+@Handler(method = "PUT", order = 2)
 class PutMethodHandler extends MethodHandlerImpl {
     public PutMethodHandler(MethodHandlerImpl next,
                             SocketService socketService,
