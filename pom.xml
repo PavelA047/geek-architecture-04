@@ -18,6 +18,7 @@
     <modules>
         <module>geek-web-server</module>
         <module>examples</module>
+        <module>Behavioral_Design_Patterns</module>
     </modules>
 
 </project>
