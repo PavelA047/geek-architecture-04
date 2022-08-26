@@ -7,7 +7,7 @@ import ru.geekbrains.service.SocketService;
 import java.io.IOException;
 import java.util.Deque;
 
-public class RequestHandler implements Runnable {
+public class RequestHandler {
 
     private final SocketService socketService;
     private final RequestParser requestParser;
@@ -21,7 +21,6 @@ public class RequestHandler implements Runnable {
         this.methodHandler = methodHandler;
     }
 
-    @Override
     public void run() {
         Deque<String> rawRequest = socketService.readRequest();
         HttpRequest req = requestParser.parse(rawRequest);
