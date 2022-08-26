@@ -36,7 +36,7 @@ public class WebServer {
                                 new RequestHandler(
                                         socketService,
                                         new RequestParser(),
-                                        MethodHandlerFactory.create(
+                                        MethodHandlerFactory.createAnnotated(
                                                 socketService,
                                                 new ResponseSerializer(),
                                                 config,

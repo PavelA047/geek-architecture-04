@@ -4,6 +4,7 @@ import ru.geekbrains.ResponseSerializer;
 import ru.geekbrains.config.ServerConfig;
 import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
+import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
 abstract class MethodHandlerImpl implements MethodHandler {
@@ -18,16 +19,20 @@ abstract class MethodHandlerImpl implements MethodHandler {
 
     protected final ServerConfig serverConfig;
 
+    protected final FileService fileService;
+
     public MethodHandlerImpl(String method,
                              MethodHandlerImpl next,
                              SocketService socketService,
                              ResponseSerializer responseSerializer,
-                             ServerConfig serverConfig) {
+                             ServerConfig serverConfig,
+                             FileService fileService) {
         this.method = method;
         this.next = next;
         this.socketService = socketService;
         this.responseSerializer = responseSerializer;
         this.serverConfig = serverConfig;
+        this.fileService = fileService;
     }
 
     public HttpResponse handle(HttpRequest request) {

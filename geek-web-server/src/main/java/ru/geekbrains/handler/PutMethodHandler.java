@@ -4,15 +4,18 @@ import ru.geekbrains.ResponseSerializer;
 import ru.geekbrains.config.ServerConfig;
 import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
+import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
 @Handler(method = "PUT", order = 2)
 class PutMethodHandler extends MethodHandlerImpl {
-    public PutMethodHandler(MethodHandlerImpl next,
+    public PutMethodHandler(String method,
+                            MethodHandlerImpl next,
                             SocketService socketService,
                             ResponseSerializer responseSerializer,
-                            ServerConfig serverConfig) {
-        super("PUT", next, socketService, responseSerializer, serverConfig);
+                            ServerConfig serverConfig,
+                            FileService fileService) {
+        super(method, next, socketService, responseSerializer, serverConfig, null);
     }
 
     @Override

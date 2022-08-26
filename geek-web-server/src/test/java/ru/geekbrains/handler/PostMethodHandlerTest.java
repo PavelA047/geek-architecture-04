@@ -15,16 +15,17 @@ public class PostMethodHandlerTest {
     private final SocketService socketService = Mockito.mock(SocketService.class);
     private final ResponseSerializer responseSerializer = Mockito.mock(ResponseSerializer.class);
     private final ServerConfig serverConfig = Mockito.mock(ServerConfig.class);
-    private final FileService fileService = Mockito.mock(FileService.class);
     private final HttpRequest httpRequest = Mockito.mock(HttpRequest.class);
 
     @Test
     public void handleInternalTest() {
         PostMethodHandler postMethodHandler = new PostMethodHandler(
+                "POST",
                 Mockito.mock(PutMethodHandler.class),
                 socketService,
                 responseSerializer,
-                serverConfig
+                serverConfig,
+                null
         );
 
         HttpResponse httpResponse = postMethodHandler.handleInternal(httpRequest);

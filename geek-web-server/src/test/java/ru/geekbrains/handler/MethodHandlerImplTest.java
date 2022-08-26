@@ -27,6 +27,7 @@ public class MethodHandlerImplTest {
         when(fileService.exists(any())).thenReturn(true);
 
         GetMethodHandler getMethodHandler = new GetMethodHandler(
+                "GET",
                 postMethodHandlerMock,
                 socketService,
                 responseSerializer,
@@ -54,10 +55,12 @@ public class MethodHandlerImplTest {
     public void postHandleTest() {
 
         PostMethodHandler postMethodHandler = new PostMethodHandler(
+                "POST",
                 putMethodHandlerMock,
                 socketService,
                 responseSerializer,
-                serverConfig
+                serverConfig,
+                fileService
         );
 
         HttpRequest httpRequest = HttpRequest.createBuilder()
@@ -80,10 +83,12 @@ public class MethodHandlerImplTest {
     public void putHandleTest() {
 
         PutMethodHandler putMethodHandler = new PutMethodHandler(
+                "PUT",
                 null,
                 socketService,
                 responseSerializer,
-                serverConfig
+                serverConfig,
+                fileService
         );
 
         HttpRequest httpRequest = HttpRequest.createBuilder()
@@ -105,11 +110,13 @@ public class MethodHandlerImplTest {
     @Test
     public void deleteHandleTest() {
 
-        PutMethodHandler putMethodHandler = new PutMethodHandler(
+        GetMethodHandler getMethodHandler = new GetMethodHandler(
+                "GET",
                 null,
                 socketService,
                 responseSerializer,
-                serverConfig
+                serverConfig,
+                fileService
         );
 
         HttpRequest httpRequest = HttpRequest.createBuilder()
@@ -125,6 +132,6 @@ public class MethodHandlerImplTest {
                 .withBody("<h1>Method is not supported</h1>")
                 .build();
 
-        Assert.assertEquals(expected.toString(), putMethodHandler.handle(httpRequest).toString());
+        Assert.assertEquals(expected.toString(), getMethodHandler.handle(httpRequest).toString());
     }
 }

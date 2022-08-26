@@ -24,6 +24,7 @@ public class GetMethodHandlerTest {
     @Test
     public void handleInternalTest() {
         GetMethodHandler getMethodHandler = new GetMethodHandler(
+                "GET",
                 Mockito.mock(PostMethodHandler.class),
                 socketService,
                 responseSerializer,
