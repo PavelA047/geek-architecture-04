@@ -67,4 +67,14 @@ public class HttpResponse {
             return response;
         }
     }
+
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "statusCode=" + statusCode +
+                ", statusCodeName='" + statusCodeName + '\'' +
+                ", headers=" + headers +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

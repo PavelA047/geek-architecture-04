@@ -30,13 +30,13 @@ abstract class MethodHandlerImpl implements MethodHandler {
         this.serverConfig = serverConfig;
     }
 
-    public void handle(HttpRequest request) {
+    public HttpResponse handle(HttpRequest request) {
         HttpResponse response;
         if (method.equals(request.getMethod())) {
             response = handleInternal(request);
         } else if (next != null) {
             next.handle(request);
-            return;
+            return null;
         } else {
             response = HttpResponse.createBuilder()
                     .withStatusCode(405)
@@ -47,6 +47,7 @@ abstract class MethodHandlerImpl implements MethodHandler {
         }
         String rawResponse = responseSerializer.serialize(response);
         socketService.writeResponse(rawResponse);
+        return response;
     }
 
     protected abstract HttpResponse handleInternal(HttpRequest request);
