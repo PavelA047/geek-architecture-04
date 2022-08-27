@@ -7,7 +7,7 @@ import ru.geekbrains.domain.HttpResponse;
 import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
-@Handler(method = "GET", order = 0)
+@Handler(method = "GET")
 class GetMethodHandler extends MethodHandlerImpl {
 
     public GetMethodHandler(String method,

@@ -8,7 +8,6 @@ import ru.geekbrains.service.SocketService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public final class MethodHandlerFactory {
 
@@ -32,11 +31,8 @@ public final class MethodHandlerFactory {
     ) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Reflections reflections = new Reflections("ru.geekbrains.handler");
-        List<Class<?>> listOfClasses = reflections
-                .getTypesAnnotatedWith(Handler.class)
-                .stream()
-                .sorted(Comparator.comparingInt(x -> x.getAnnotation(Handler.class).order()))
-                .collect(Collectors.toList());
+        List<Class<?>> listOfClasses = new ArrayList<>(reflections
+                .getTypesAnnotatedWith(Handler.class));
 
         sizeOfList = listOfClasses.size();
         count = 0;

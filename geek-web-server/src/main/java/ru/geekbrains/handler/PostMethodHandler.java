@@ -7,7 +7,7 @@ import ru.geekbrains.domain.HttpResponse;
 import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
-@Handler(method = "POST", order = 1)
+@Handler(method = "POST")
 class PostMethodHandler extends MethodHandlerImpl {
     public PostMethodHandler(String method,
                              MethodHandlerImpl next,
