@@ -1,5 +1,7 @@
 package ru.geekbrains;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import ru.geekbrains.config.*;
 import ru.geekbrains.handler.MethodHandlerFactory;
 import ru.geekbrains.service.FileService;
@@ -15,23 +17,37 @@ public class WebServer {
         ServerConfig config = ServerConfigFactory.create(args);
         try (ServerSocket serverSocket = new ServerSocket(config.getPort())) {
             System.out.println("Server started!");
-
-            while (true) {
-                Socket socket = serverSocket.accept();
-                System.out.println("New client connected!");
-
-                SocketService socketService = new SocketService(socket);
-
-                new Thread(new RequestHandler(
-                        socketService,
-                        new RequestParser(),
-                        MethodHandlerFactory.create(
-                                socketService,
-                                new ResponseSerializer(),
-                                config,
-                                new FileService(config.getWww()))
-                )).start();
-            }
+            Observable.<Socket>create(emitter -> {
+                        try {
+                            while (true) {
+                                Socket socket = serverSocket.accept();
+                                System.out.println("New client connected!");
+                                emitter.onNext(socket);
+                            }
+                        } catch (Exception ex) {
+                            emitter.onError(ex);
+                        }
+                    })
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.newThread())
+                    .map(SocketService::new)
+                    .subscribe(
+                            socketService -> {
+                                new RequestHandler(
+                                        socketService,
+                                        new RequestParser(),
+                                        MethodHandlerFactory.createAnnotated(
+                                                socketService,
+                                                new ResponseSerializer(),
+                                                config,
+                                                new FileService(config.getWww())
+                                        )
+                                ).run();
+                            },
+                            err -> System.out.println(err.getMessage())
+                    );
+            System.out.println("Press any key to close webServer");
+            System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }

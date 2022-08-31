@@ -7,18 +7,16 @@ import ru.geekbrains.domain.HttpResponse;
 import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
-@Handler(method = "GET", order = 0)
+@Handler(method = "GET")
 class GetMethodHandler extends MethodHandlerImpl {
 
-    private final FileService fileService;
-
-    public GetMethodHandler(MethodHandlerImpl next,
+    public GetMethodHandler(String method,
+                            MethodHandlerImpl next,
                             SocketService socketService,
                             ResponseSerializer responseSerializer,
                             ServerConfig serverConfig,
                             FileService fileService) {
-        super("GET", next, socketService, responseSerializer, serverConfig);
-        this.fileService = fileService;
+        super(method, next, socketService, responseSerializer, serverConfig, fileService);
     }
 
     @Override

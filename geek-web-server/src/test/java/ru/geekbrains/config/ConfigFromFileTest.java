@@ -10,7 +10,7 @@ public class ConfigFromFileTest {
     @Test
     public void testConfigFromFile() {
         config = new ConfigFromFile("../../../server.properties");
-        Assert.assertEquals("/homepath", config.getWww());
-        Assert.assertEquals(1234, config.getPort());
+        Assert.assertEquals("D:www", config.getWww());
+        Assert.assertEquals(8088, config.getPort());
     }
 }

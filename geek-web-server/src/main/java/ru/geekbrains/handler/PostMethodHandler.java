@@ -4,15 +4,18 @@ import ru.geekbrains.ResponseSerializer;
 import ru.geekbrains.config.ServerConfig;
 import ru.geekbrains.domain.HttpRequest;
 import ru.geekbrains.domain.HttpResponse;
+import ru.geekbrains.service.FileService;
 import ru.geekbrains.service.SocketService;
 
-@Handler(method = "POST", order = 1)
+@Handler(method = "POST")
 class PostMethodHandler extends MethodHandlerImpl {
-    public PostMethodHandler(MethodHandlerImpl next,
+    public PostMethodHandler(String method,
+                             MethodHandlerImpl next,
                              SocketService socketService,
                              ResponseSerializer responseSerializer,
-                             ServerConfig serverConfig) {
-        super("POST", next, socketService, responseSerializer, serverConfig);
+                             ServerConfig serverConfig,
+                             FileService fileService) {
+        super(method, next, socketService, responseSerializer, serverConfig, null);
     }
 
     @Override
