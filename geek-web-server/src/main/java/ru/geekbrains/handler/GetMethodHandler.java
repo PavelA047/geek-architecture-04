@@ -23,15 +23,15 @@ class GetMethodHandler extends MethodHandlerImpl {
     protected HttpResponse handleInternal(HttpRequest request) {
         if (!fileService.exists(request.getUrl())) {
             return HttpResponse.createBuilder()
-                    .withStatusCode(404)
-                    .withStatusCodeName("NOT_FOUND")
+                    .withStatusCode(ResponseStatus.NOT_FOUND.getCode())
+                    .withStatusCodeName(ResponseStatus.NOT_FOUND.getName())
                     .withHeader("Content-Type", "text/html; charset=utf-8")
                     .build();
         }
 
         return HttpResponse.createBuilder()
-                .withStatusCode(200)
-                .withStatusCodeName("OK")
+                .withStatusCode(ResponseStatus.OK.getCode())
+                .withStatusCodeName(ResponseStatus.OK.getName())
                 .withHeader("Content-Type", "text/html; charset=utf-8")
                 .withBody(fileService.readFile(request.getUrl()))
                 .build();
