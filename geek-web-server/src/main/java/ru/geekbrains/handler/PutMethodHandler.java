@@ -21,8 +21,8 @@ class PutMethodHandler extends MethodHandlerImpl {
     @Override
     protected HttpResponse handleInternal(HttpRequest request) {
         return HttpResponse.createBuilder()
-                .withStatusCode(200)
-                .withStatusCodeName("OK")
+                .withStatusCode(ResponseStatus.OK.getCode())
+                .withStatusCodeName(ResponseStatus.OK.getName())
                 .withHeader("Content-Type", "text/html; charset=utf-8")
                 .withBody("<h1>PUT method is handled</h>")
                 .build();
